@@ -45,7 +45,7 @@ class db
      echo '
      <tr>
        <th scope="row">' ; echo @$id ; echo '</th>
-       <td><input id="example1div" type="text" name="Project" value=""></td>
+       <td><input id="example1div" type="text" name="Name" value=""></td>
        <td><input id="example1div" type="text" name="Steps"></td>
        <td><input id="example1div" type="text" name="Expected"></td>
        <td>' ; echo @$created ; echo'</td>';
@@ -55,9 +55,10 @@ class db
 
     }
 
-    function writeRecord ($project, $steps, $expected) {
+    function writeRecord ($casename, $steps, $expected) {
+      $user = $_SESSION['username'];
       $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-      $sql="INSERT INTO users (casename, steps, expected) VALUES ('$casename', '$steps', '$expected')";
+      $sql="INSERT INTO users (casename, steps, expected, createdby) VALUES ('$casename', '$steps', '$expected', '$user')";
       $result=mysqli_query($link,$sql);
       echo  '<script type="text/javascript">swal("Success!", "Record added, please wait...", "success");</script>';
     }

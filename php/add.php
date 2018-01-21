@@ -20,7 +20,7 @@ function addHeader() {
   </div>';
 }
 
-function add($id = NULL, $project = NULL, $steps = NULL, $expected = NULL, $created = NULL) {
+function add($id = NULL, $casename = NULL, $steps = NULL, $expected = NULL, $created = NULL) {
   echo '
   <tr>
     <th scope="row">' ; echo $id ; echo '</th>

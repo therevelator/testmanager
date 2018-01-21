@@ -29,11 +29,12 @@ if ($username == "ion" && $password == "ppp") {
   $_SESSION['userauth'] = "true";
 	header("refresh:2; url=front.php");
 	echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
+  $_SESSION['username'] = $username;
 }elseif ($username == "default" && $password == "default") {
   echo "";
 }else{
   echo  '<script type="text/javascript">swal("Invalid Username / Password", "Please check the username / password combination", "error");</script>';
-
+  unset($_SESSION['username']);
 }
 
 

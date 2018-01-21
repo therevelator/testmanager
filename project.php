@@ -43,3 +43,4 @@ if ($logoutaction == "Logout") {
 <?php
 //add project table/ in the project table, there is a link which leads to front php and displays the testcases for a certain project ID
 //assign a project ID to every test case and then make a query to show only the clicked / selected ProjectID
+//change the name of Project to Name in the query
