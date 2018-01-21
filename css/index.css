@@ -1,0 +1,12 @@
+body
+{
+ width:100%;
+ height: 100%;
+ margin:0 auto;
+ padding:0px;
+ font-family:helvetica;
+ background: -moz-linear-gradient(-45deg,  #071126 1%, #c5ced6 50%, #0c0626 100%, #7db9e8 100%); /* FF3.6-15 */
+background: linear-gradient(135deg,  #071126 1%,#c5ced6 50%,#0c0626 100%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+ background-size: cover;
+ background-position: center center;
+}
