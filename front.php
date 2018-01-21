@@ -72,6 +72,8 @@ if (isset($_POST['Add'])) {
 // $expected = "";
 
 if (!empty($_POST['Add']) && $_POST['Add'] == "Submit Query") {
+	//add check if variables are empty (prevent inserting null in table)
+	//add error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 	$project = $_POST['Project'];
 	$steps = $_POST['Steps'];
 	$expected = $_POST['Expected'];
