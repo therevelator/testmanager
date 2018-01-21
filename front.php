@@ -7,11 +7,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.js"integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="crossorigin="anonymous"></script>
 <link rel="stylesheet" href="css/sweetalert.css" />
 <link type="text/css" rel="stylesheet" href="css/dc_tables1.css" />
-
-
-
 </head>
-
 <?php
 session_start();
 //login module using session variable
@@ -29,36 +25,26 @@ if (isset($_POST['Logout'])) {
 if ($logoutaction == "Logout") {
 		require_once('logout.php');
 }
-
 ?>
-
-
 <body>
 <form name="case" class="form-signin" method="POST">
 	<div align="center">
-		<a href="php/add.php" class="dc_3d_button black"> Logout </a>
+		<!-- <a href="php/add.php" class="dc_3d_button black"> Logout </a> -->
 		<a href="logout.php" class="dc_3d_button black"> Logout </a>
-		<a href="logout.php" class="dc_3d_button black"> Logout </a>
-		<a href="logout.php" class="dc_3d_button black"> Logout </a>
-		<a href="logout.php" class="dc_3d_button black"> Logout </a>
-		<input class="dc_3d_button black" type="submit" name="table" value="Test Case">
-		<input class="dc_3d_button black" type="submit" name="Logout"  value="Logout">
+		<a href="project.php" class="dc_3d_button black"> Project </a>
+		<!-- <a href="logout.php" class="dc_3d_button black"> Logout </a>
+		<a href="logout.php" class="dc_3d_button black"> Logout </a> -->
+		<a href="front.php" class="dc_3d_button black"> TestCase </a>
+		<a href="project.php" class="dc_3d_button black"> test </a>
 	</div>
 </body>
-
-
 <div id="example1div">
-	<!-- pana aici e bine -->
 <?php
+//table header
 require_once('php/add.php');
 $testObject = new Table();
-$testObject->addHeader();?>
-
-
-<?php
-
-
-
+$testObject->addHeader();
+//edit body of table, brings up text fields
 $editaction = "default";
 if (isset($_POST['Add'])) {
 	$editaction = $_POST['Add'];
@@ -67,82 +53,35 @@ if (isset($_POST['Add'])) {
 	$db->editTable();
 }
 
-// $project = "";
-// $steps = "";
-// $expected = "";
-
-if (!empty($_POST['Add']) && $_POST['Add'] == "Submit Query") {
-	//add check if variables are empty (prevent inserting null in table)
-	//add error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
+if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
+//error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
+//checks if input empty and writes to DB
 	$project = $_POST['Project'];
 	$steps = $_POST['Steps'];
 	$expected = $_POST['Expected'];
-	$db->writeRecord($project, $steps, $expected);
+	if (!empty($_POST['Project']) && !empty($_POST['Steps']) && !empty($_POST['Expected'])) {
+		$db->writeRecord($project, $steps, $expected);
+	}else {
+		echo '<script type="text/javascript">swal("Nope :)", "All fields are required...", "error");</script>';
+	}
 }
-// $addaction = "default";
-// $a = 1;
-// $b = 2;
-// $c = 3;
-// $d = 4;
-// $e = 5;
-// $testObject->add($a, $b, $c, $d, $e);
-// $testObject->buttons();
-// if ($addaction == "Add") {
-// 	$a = 1;
-// 	$b = 2;
-// 	$c = 3;
-// 	$d = 4;
-// 	$e = 5;
-// 	$testObject->add($a, $b, $c, $d, $e);
-//
-// }
-//adds an editable row?!?
-$edit = "default";
-
-// if (isset($_POST['Done'])) {
-// 	$edit = "Done";
-// 	require_once('php/edit.php');
-// 	 $id = "q"; $project = "w"; $steps = "e"; $expected = "r"; $created = "t";
-// 	 $editaction = new editTable();
-// 	 $editaction->edit($id, $project, $steps, $expected, $created);
-//
-// }
-//sql Insert
-// include('php/dbconnect.php');
-// $db = new data();
-// $db->connect();
-
-// $a = "a";
-// $b = "b";
-// $c = "c";
-// $d = "d";
-// $e = "e";
-// $sql = "INSERT INTO `users` (`id`, `project`, `steps`, `expected`, `createdby`) VALUES ($a, $b, $c, $d, $e)";
-//  mysqli_query($link, $sql);
-// $result = mysqli_query($link,"INSERT INTO users (id, project, steps, expected, createdby)
-// VALUES ('a','b', 'c', 'd', 'e')");
-//
-// if (!$result) {
-//     echo "DB Error, could not query the database\n";
-//     echo 'MySQL Error: ' . mysqli_error($link);
-//     exit;
-// }
+//Delete action
+if (isset($_POST['Delete']) && !empty($_POST["Delete"])) {
+	require_once('php/db.php');
+	$db = new db();
+	$db->deleteRecord();
+}
 require_once('php/db.php');
 $db = new db();
 $db->connect();
 $db->getTable();
 $db->close();
-// $db->query($sql);
+
 ?>
 
 </div>
 <?php
-var_dump($_POST);
  $testObject->endTable();
-// require_once('php/edit.php');
-// $id = "q"; $project = "w"; $steps = "e"; $expected = "r"; $created = "t";
-// $editaction = new editTable();
-// $editaction->edit($id, $project, $steps, $expected, $created);
-echo '';
+
 
 ?>

@@ -5,11 +5,11 @@ function addHeader() {
   echo "<br><br><br>";
   echo '
 <div align="center">
-  <table class="dc_table_s7" summary="Sample Table" style="width:80%;">
+  <table class="dc_table_s7" summary="TestCase Table" style="width:90%;">
     <thead>
         <tr>
           <th style="width: 80px" scope="col">ID</th>
-          <th style="width: 80px" scope="col">Project</th>
+          <th style="width: 80px" scope="col">Name</th>
           <th style="width: 320px" scope="col">Steps</th>
           <th scope="col">Expected Result</th>
           <th scope="col">Created By</th>
