@@ -5,15 +5,14 @@ function addHeader() {
   echo "<br><br><br>";
   echo '
 <div align="center">
-  <table class="dc_table_s7" summary="TestCase Table" style="width:90%;">
+  <table class="dc_table_s7" summary="TestCase Table" style="width:60%;">
     <thead>
         <tr>
-          <th style="width: 80px" scope="col">ID</th>
-          <th style="width: 80px" scope="col">Name</th>
+          <th style="width: 80px" scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID</th>
           <th style="width: 320px" scope="col">Steps</th>
           <th scope="col">Expected Result</th>
           <th scope="col">Created By</th>
-          <th style="width: 280px;" scope="col">Action</th>
+          <th style="width: 100px;" scope="col">Action</th>
         </tr>
       </thead>
     <tbody>
@@ -38,12 +37,12 @@ function add($id = NULL, $casename = NULL, $steps = NULL, $expected = NULL, $cre
 
 }
 
-function buttons () {
-  echo '<td><input class="dc_3d_button green" type="submit" name="Add"  value="Add">
-  <input class="dc_3d_button orange" type="submit" name="Done"  value="Done">
-  <input class="dc_3d_button red" type="submit" name="Add"  value="Delete"></td>
-  </tr>';
-}
+// function buttons () {
+//   echo '<td><input class="dc_3d_button green" type="submit" name="Add"  value="Add">
+//   <input class="dc_3d_button orange" type="submit" name="Done"  value="Done">
+//   <input class="dc_3d_button red" type="submit" name="Add"  value="Delete"></td>
+//   </tr>';
+// }
 function endTable() {
   echo '</tbody>
 </table>

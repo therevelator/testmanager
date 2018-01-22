@@ -36,6 +36,7 @@ if ($logoutaction == "Logout") {
 		<a href="logout.php" class="dc_3d_button black"> Logout </a> -->
 		<a href="front.php" class="dc_3d_button black"> TestCase </a>
 		<a href="project.php" class="dc_3d_button black"> test </a>
+		<input class="dc_3d_button green" type="submit" name="Add" value="Add">
 	</div>
 </body>
 <div id="example1div">
@@ -56,11 +57,10 @@ if (isset($_POST['Add'])) {
 if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 //error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 //checks if input empty and writes to DB
-	$casename = $_POST['Name'];
 	$steps = $_POST['Steps'];
 	$expected = $_POST['Expected'];
-	if (!empty($_POST['Name']) && !empty($_POST['Steps']) && !empty($_POST['Expected'])) {
-		$db->writeRecord($casename, $steps, $expected);
+	if (!empty($_POST['Steps']) && !empty($_POST['Expected'])) {
+		$db->writeRecord($steps, $expected);
 	}else {
 		echo '<script type="text/javascript">swal("Nope :)", "All fields are required...", "error");</script>';
 	}
