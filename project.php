@@ -32,13 +32,16 @@ if ($logoutaction == "Logout") {
   <form name="case" class="form-signin" method="POST">
   	<div align="center">
   		<!-- <a href="php/add.php" class="dc_3d_button black"> Logout </a> -->
-  		<a href="logout.php" class="dc_3d_button black"> Logout </a>
+			<a href="front.php" class="dc_3d_button black"> Home </a>
+
   		<a href="project.php" class="dc_3d_button black"> Project </a>
   		<!-- <a href="logout.php" class="dc_3d_button black"> Logout </a>
   		<a href="logout.php" class="dc_3d_button black"> Logout </a> -->
-  		<a href="front.php" class="dc_3d_button black"> TestCase </a>
-  		<a href="project.php" class="dc_3d_button black"> test </a>
+  		<a href="testcases.php" class="dc_3d_button black"> TestCase </a>
+  		
 			<input class="dc_3d_button green" type="submit" name="Add" value="Add">
+
+			<a href="logout.php" class="dc_3d_button black"> Logout </a>
   	</div>
   </body>
   <div id="example1div">
