@@ -54,8 +54,8 @@ $editaction = "default";
 if (isset($_POST['Add'])) {
 	$editaction = $_POST['Add'];
 	require_once('php/db.php');
-	$db = new db();
-	$db->editTable();
+	$testcases = new testcases();
+	$testcases->editTable();
 }
 
 if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
@@ -64,7 +64,7 @@ if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 	$steps = $_POST['Steps'];
 	$expected = $_POST['Expected'];
 	if (!empty($_POST['Steps']) && !empty($_POST['Expected'])) {
-		$db->writeRecord($steps, $expected);
+		$testcases->writeRecord($steps, $expected);
 	}else {
 		echo '<script type="text/javascript">swal("Nope :)", "All fields are required...", "error");</script>';
 	}
@@ -72,14 +72,14 @@ if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 //Delete action
 if (isset($_POST['Delete']) && !empty($_POST["Delete"])) {
 	require_once('php/db.php');
-	$db = new db();
-	$db->deleteRecord();
+	$testcases = new testcases();
+	$testcases->deleteRecord();
 }
 require_once('php/db.php');
-$db = new db();
-$db->connect();
-$db->getTable();
-$db->close();
+$testcases = new testcases();
+$testcases->connect();
+$testcases->getTable();
+$testcases->close();
 
 ?>
 

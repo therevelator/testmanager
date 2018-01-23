@@ -7,6 +7,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.js"integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="crossorigin="anonymous"></script>
 <link rel="stylesheet" href="css/sweetalert.css" />
 <link type="text/css" rel="stylesheet" href="css/dc_tables1.css" />
+<link type="text/css" rel="stylesheet" href="css/dc_tables2.css" />
 
 </head>
 
@@ -38,7 +39,7 @@ if ($logoutaction == "Logout") {
   		<!-- <a href="logout.php" class="dc_3d_button black"> Logout </a>
   		<a href="logout.php" class="dc_3d_button black"> Logout </a> -->
   		<a href="testcases.php" class="dc_3d_button black"> TestCase </a>
-  		
+
 			<input class="dc_3d_button green" type="submit" name="Add" value="Add">
 
 			<a href="logout.php" class="dc_3d_button black"> Logout </a>
@@ -47,9 +48,11 @@ if ($logoutaction == "Logout") {
   <div id="example1div">
 <?php
 
-require_once('php/db.php');
-$db = new db();
-$db->renderProjectView();
+require_once('php/projectclass.php');
+$projectclass = new view();
+$projectclass-> viewProjects();
+
+
 
 //add project table/ in the project table, there is a link which leads to front php and displays the testcases for a certain project ID
 //assign a project ID to every test case and then make a query to show only the clicked / selected ProjectID
