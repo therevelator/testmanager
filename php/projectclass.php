@@ -19,22 +19,21 @@ class testcases
 
   function getTable () {
     $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-    $sql="SELECT id, casename, steps, expected, createdby FROM testcases ORDER BY id";
+    $sql="SELECT ProjectID, ProjectName, CreatedBy FROM project ORDER BY ProjectID";
     $result=mysqli_query($link,$sql);
 
     while ($row = mysqli_fetch_assoc($result))
     // Fetch one and one row
-   { $ID = $row['id'];
+   { $ID = $row['ProjectID'];
      echo '
        <tr>
          <th  scope="row"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $ID .  '</th>
-         <td>' ; echo $row['steps'] ; echo'</td>
-         <td>' ; echo $row['expected'] ; echo'</td>
-         <td>' ; echo $row['createdby'] ; echo'</td>';
+         <td>' ; echo $row['ProjectName'] ; echo'</td>
+         <td>' ; echo $row['CreatedBy'] ; echo'</td>';
 
         echo'  <td>
-                <input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row['id']; echo '">
-                <input  type="hidden" id="Delete" value="Delete '; echo $row['id']; echo '">
+                <input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row['ProjectID']; echo '">
+                <input  type="hidden" id="Delete" value="Delete '; echo $row['ProjectID']; echo '">
               </td>
           ';
 
@@ -45,17 +44,16 @@ class testcases
      echo '
      <tr>
        <th scope="row">' ; echo @$id ; echo '</th>
-       <td><input id="example1div" type="text" name="Steps"></td>
-       <td><input id="example1div" type="text" name="Expected"></td>
+       <td><input id="example1div" type="text" name="Project Name"></td>
        <td>' ; echo @$created ; echo'</td>';
        echo '<td><input class="dc_3d_button orange" type="submit" name="Done" value="Done">
          <input class="dc_3d_button red" type="submit" name="Add"  value="Save"></td>';
     }
 
-    function writeRecord ($steps, $expected) {
+    function writeRecord ($projectname) {
       $user = $_SESSION['username'];
       $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-      $sql="INSERT INTO testcases (steps, expected, createdby) VALUES ('$steps', '$expected', '$user')";
+      $sql="INSERT INTO project (ProjectName, CreatedBy) VALUES ('$projectname', '$user')";
       $result=mysqli_query($link,$sql);
       echo  '<script type="text/javascript">swal("Success!", "Record added, please wait...", "success");</script>';
     }
@@ -63,10 +61,10 @@ class testcases
     function deleteRecord () {
       $deleteId = $_POST['Delete'];
       $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-      $sql="SELECT id, casename, steps, expected, createdby FROM testcases ORDER BY id";
+      $sql="SELECT ProjectID, ProjectName, CreatedBy FROM project ORDER BY ProjectID";
       $result=mysqli_query($link,$sql);
       var_dump($_POST);
-      $sql1="DELETE FROM testcases WHERE id = '$deleteId'";
+      $sql1="DELETE FROM project WHERE ProjectID = '$deleteId'";
       $result=mysqli_query($link,$sql1);
       echo  '<script type="text/javascript">swal("Success!", "Record deleted", "success");</script>';
     }
@@ -158,8 +156,7 @@ echo'<div align="center">
         <thead>
             <tr>
               <th style="width: 80px" scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID</th>
-              <th style="width: 320px" scope="col">Steps</th>
-              <th scope="col">Expected Result</th>
+              <th style="width: 320px" scope="col">Project Name</th>
               <th scope="col">Created By</th>
               <th style="width: 100px;" scope="col">Action</th>
             </tr>
@@ -168,23 +165,7 @@ echo'<div align="center">
       </div>';
     }
 
-    function add($id = NULL, $casename = NULL, $steps = NULL, $expected = NULL, $created = NULL) {
-      echo '
-      <tr>
-        <th scope="row">' ; echo $id ; echo '</th>
-        <td><input id="example1div" type="text" name="ID" value=""></td>
-        <td><input id="example1div" type="text" name="Steps"></td>
-        <td><input id="example1div" type="text" name="Expected"></td>
-        <td>' ; echo $created ; echo'</td>';
-      // echo '
-      //     <tr>
-      //       <th  scope="row">' ; echo $id ; echo '</th>
-      //       <td style="width: 180px">' ; echo $project ; echo'</td>
-      //       <td>' ; echo $steps ; echo'</td>
-      //       <td>' ; echo $expected ; echo'</td>
-      //       <td>' ; echo $created ; echo'</td>';
 
-    }
 
     // function buttons () {
     //   echo '<td><input class="dc_3d_button green" type="submit" name="Add"  value="Add">

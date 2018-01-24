@@ -59,10 +59,10 @@ if (isset($_POST['Add'])) {
 if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 //error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 //checks if input empty and writes to DB
-	$steps = $_POST['Steps'];
-	$expected = $_POST['Expected'];
-	if (!empty($_POST['Steps']) && !empty($_POST['Expected'])) {
-		$testObject->writeRecord($steps, $expected);
+	$projectname = $_POST['Project_Name'];
+
+	if (!empty($_POST['Project_Name'])) {
+		$testObject->writeRecord($projectname);
 	}else {
 		echo '<script type="text/javascript">swal("Nope :)", "All fields are required...", "error");</script>';
 	}
