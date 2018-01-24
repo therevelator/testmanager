@@ -71,7 +71,10 @@ if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 if (isset($_POST['Delete']) && !empty($_POST["Delete"])) {
 	require_once('php/projectclass.php');
 	$testObject = new testcases();
-	$testObject->deleteRecord();
+	var_dump($_POST);
+	// var_dump($_SESSION['ID']);
+	//$testObject->deleteRecord();
+	//find a way to pass the ID of the project(finally worked as $_POST['Delete']);
 }
 //connects to the DB and gets the rows after they were added above
 require_once('php/projectclass.php');
