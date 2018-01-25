@@ -11,7 +11,7 @@
 </head>
 <?php
 
-//using projectclass.php everywhere. Customize to add projects
+//LE: NOT using projectclass.php everywhere
 
 session_start();
 //login module using session variable
@@ -48,9 +48,8 @@ require_once('php/add.php');
 $testObject = new Table();
 $testObject->addHeader();
 
-
-
 //edit body of table, brings up text fields
+
 $editaction = "default";
 @$add = $_POST['Add'];
 if (isset($add) || $_SESSION['is_empty'] = "true") {

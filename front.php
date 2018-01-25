@@ -122,4 +122,6 @@ $testObject->close();
 <?php
 //echoes the </table> tag and the </div>
  // $testObject->endTable();
+ //CUSTOMIZE TO VIEW LIST OF projects
+ //CUSTOMIZE TO ADD SUBSECTIONS
 ?>

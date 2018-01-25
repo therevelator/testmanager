@@ -1,8 +1,6 @@
 <?php
 class Table {
 
-
-
 function addHeader() {
   echo "<br><br><br>";
   echo '
@@ -65,6 +63,7 @@ function getTable1 ($posted_details_id) {
   $_SESSION['is_empty'] = "true";
   }
 }
+
 
 
 function loadDetails ($posted_details_id) {

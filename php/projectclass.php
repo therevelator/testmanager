@@ -28,7 +28,7 @@ class testcases
 
   function getTable () {
     $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-    $sql="SELECT ProjectID, ProjectName, CreatedBy FROM project ORDER BY ProjectID";
+    $sql="SELECT ProjectID, ProjectName, createdby FROM project ORDER BY ProjectID";
     $result=mysqli_query($link,$sql);
     //set parameters to use later in second foreach
     if ($result->num_rows > 0) {
@@ -38,7 +38,7 @@ class testcases
         <tr>
           <td>' ; echo $row["ProjectID"] ; echo'</td>
           <td>' ; echo $row["ProjectName"] ; echo'</td>
-          <td>' ; $row["CreatedBy"] ; echo'</td>
+          <td>' ; echo $row["createdby"] ; echo'</td>
           <td><input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row["ProjectID"]; echo '">
           <input class="dc_3d_button black" type="submit" name="Details" value="'; echo $row["ProjectID"]; echo '"></td>';
         }
@@ -165,7 +165,7 @@ class testcases
 
          }
 
-         
+
      }
 
 
