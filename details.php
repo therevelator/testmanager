@@ -17,10 +17,7 @@ session_start();
 //login module using session variable
 if ($_SESSION['userauth'] == "true") {
 	echo " ";
-}else{
-	echo "Please check session variables";
-	header('Location: index.php');
-}
+
 //logout action
 $logoutaction = "default";
 if (isset($_POST['Logout'])) {
@@ -43,6 +40,7 @@ if ($logoutaction == "Logout") {
 <div id="example1div">
 <?php
 //table header
+var_dump($_SESSION);
 $posted_details_id = $_SESSION['posted_details_id'];
 require_once('php/add.php');
 $testObject = new Table();
@@ -52,7 +50,7 @@ $testObject->addHeader();
 
 $editaction = "default";
 @$add = $_POST['Add'];
-if (isset($add) || $_SESSION['is_empty'] = "true") {
+if (isset($add)) {
 	@$editaction = $_POST['Add'];
 	require_once('php/db.php');
 	$testcases = new testcases1();
@@ -85,3 +83,7 @@ require_once('php/add.php');
 $testcases = new Table();
 // $testcases->connect();
 $testObject->getTable1($posted_details_id);
+}else{
+	echo "Please check session variables";
+	header('Location: index.php');
+}

@@ -60,7 +60,7 @@ function getTable1 ($posted_details_id) {
     }
 }  else {
   echo  '<script type="text/javascript">swal("Nothing to see here", "Add some test cases", "warning");</script>';
-  $_SESSION['is_empty'] = "true";
+  // $_SESSION['is_empty'] = "true";
   }
 }
 

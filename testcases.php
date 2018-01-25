@@ -15,7 +15,7 @@ session_start();
 if ($_SESSION['userauth'] == "true") {
 	echo " ";
 }else{
-	echo "Please check session variables";
+	echo  '<script type="text/javascript">swal("Not authorized!", "Please, login first...", "error");</script>';
 	header('Location: index.php');
 }
 //logout action

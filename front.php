@@ -15,12 +15,8 @@
 
 session_start();
 //login module using session variable
-if ($_SESSION['userauth'] == "true") {
-	echo " ";
-}else{
-	echo "Please check session variables";
-	header('Location: index.php');
-}
+if ($_SESSION["userauth"] == "true") {
+
 //logout action
 $logoutaction = "default";
 if (isset($_POST['Logout'])) {
@@ -124,4 +120,11 @@ $testObject->close();
  // $testObject->endTable();
  //CUSTOMIZE TO VIEW LIST OF projects
  //CUSTOMIZE TO ADD SUBSECTIONS
+ //CUSTOMIZE TO ADD PROJECTS (1 LEVEL UP FROM CURRENT PROJECTS)
+ //add proper user auth
+}else{
+ echo "Please check session variables";
+ header('Location: index.php');
+}
+var_dump($_SESSION);
 ?>
