@@ -44,34 +44,45 @@ if ($logoutaction == "Logout") {
 <?php
 //table header
 $posted_details_id = $_SESSION['posted_details_id'];
-require_once('php/projectclass.php');
-$testObject = new testcases();
-// $testObject->connect();
-$testObject->addTestcaseHeader();
-$testObject->loadDetails($posted_details_id);
-//edit body of table, brings up text fields
-
-
 require_once('php/add.php');
 $testObject = new Table();
 $testObject->addHeader();
+
+
+
 //edit body of table, brings up text fields
 $editaction = "default";
-if (isset($_POST['Add'])) {
-	$editaction = $_POST['Add'];
-	require_once('php/projectclass.php');
-	$testcases = new testcases();
-	$testcases->editTableAddTestcase($posted_details_id);
+@$add = $_POST['Add'];
+if (isset($add) || $_SESSION['is_empty'] = "true") {
+	@$editaction = $_POST['Add'];
+	require_once('php/db.php');
+	$testcases = new testcases1();
+	$testcases->editTable();
 }
 
+require_once('php/db.php');
+$testcases = new testcases1();
 if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 //error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 //checks if input empty and writes to DB
 	$steps = $_POST['Steps'];
 	$expected = $_POST['Expected'];
 	if (!empty($_POST['Steps']) && !empty($_POST['Expected'])) {
+		$posted_details_id = $_SESSION['posted_details_id'];
 		$testcases->writeRecord($steps, $expected, $posted_details_id);
 	}else {
 		echo '<script type="text/javascript">swal("Nope :)", "All fields are required...", "error");</script>';
 	}
 }
+
+if (isset($_POST['Delete']) && !empty($_POST["Delete"])) {
+	require_once('php/db.php');
+	$testcases = new testcases1();
+	$testcases->deleteRecord();
+}
+
+
+require_once('php/add.php');
+$testcases = new Table();
+// $testcases->connect();
+$testObject->getTable1($posted_details_id);

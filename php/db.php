@@ -19,7 +19,7 @@ class testcases1
 
   function getTable () {
     $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-    $sql="SELECT id, casename, steps, expected, createdby FROM testcases ORDER BY id";
+    $sql="SELECT id, casename, steps, expected, createdby, ProjectID FROM testcases ORDER BY id";
     $result=mysqli_query($link,$sql);
 
     while ($row = mysqli_fetch_assoc($result))
@@ -71,6 +71,12 @@ class testcases1
       // var_dump($_POST);
       $sql1="DELETE FROM testcases WHERE id = '$deleteId'";
       $result=mysqli_query($link,$sql1);
+      $error = mysqli_errno($link);
+      if (!$error) {
+        echo  '<script type="text/javascript">swal("Success!", "Record deleted", "success");</script>';
+      } else {
+        echo  '<script type="text/javascript">swal("Error", "Project not empty!", "error");</script>';
+      }
 
 
 //     function renderProjectView() {

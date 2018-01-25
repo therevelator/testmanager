@@ -121,5 +121,5 @@ $testObject->close();
 </body>
 <?php
 //echoes the </table> tag and the </div>
- $testObject->endTable();
+ // $testObject->endTable();
 ?>

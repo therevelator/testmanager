@@ -1,6 +1,8 @@
 <?php
 class Table {
 
+
+
 function addHeader() {
   echo "<br><br><br>";
   echo '
@@ -36,6 +38,64 @@ function add($id = NULL, $casename = NULL, $steps = NULL, $expected = NULL, $cre
   //       <td>' ; echo $created ; echo'</td>';
 
 }
+
+function getTable1 ($posted_details_id) {
+  $posted_details_id = $_SESSION['posted_details_id'];
+  $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
+  $sql="SELECT * FROM  testcases WHERE ProjectID = $posted_details_id ORDER BY id";
+  $result=mysqli_query($link,$sql);
+  $errornumrows = $result->num_rows;
+  if ($errornumrows != 0) {
+  while ($row = mysqli_fetch_assoc($result))
+ { $ID = $row['id'];
+   echo '
+     <tr>
+       <th  scope="row"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $ID .  '</th>
+       <td>' ; echo $row['steps'] ; echo'</td>
+       <td>' ; echo $row['expected'] ; echo'</td>
+       <td>' ; echo $row['createdby'] ; echo'</td>';
+      echo'  <td>
+              <input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row['id']; echo '">
+              <input  type="hidden" id="Delete" value="Delete '; echo $row['id']; echo '">
+            </td>
+        ';
+    }
+}  else {
+  echo  '<script type="text/javascript">swal("Nothing to see here", "Add some test cases", "warning");</script>';
+  $_SESSION['is_empty'] = "true";
+  }
+}
+
+
+function loadDetails ($posted_details_id) {
+ $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
+ $sql="SELECT * FROM  testcases WHERE ProjectID = $posted_details_id ORDER BY id";
+ $result=mysqli_query($link,$sql);
+ $errornumrows = $result->num_rows;
+ if ($errornumrows != 0) {
+ while ($row = mysqli_fetch_assoc($result))
+ // Fetch rows one by one
+{ $ID = $row['id'];
+  echo '
+    <tr>
+      <th  scope="row"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $ID .  '</th>
+      <td>' ; echo $row['steps'] ; echo'</td>
+      <td>' ; echo $row['expected'] ; echo'</td>
+      <td>' ; echo $row['createdby'] ; echo'</td>';
+
+     echo'  <td>
+             <input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row['id']; echo '">
+             <input  type="hidden" id="Delete" value="Delete '; echo $row['id']; echo '">
+           </td>
+       ';
+
+     }
+
+     } else {
+       echo  '<script type="text/javascript">swal("Error", "Project empty, redirecting ...", "error");</script>';
+       header("refresh:2; url=front.php");
+     }
+ }
 
 // function buttons () {
 //   echo '<td><input class="dc_3d_button green" type="submit" name="Add"  value="Add">

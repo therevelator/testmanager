@@ -71,7 +71,7 @@ class testcases
       echo  '<script type="text/javascript">swal("Success!", "Record added, please wait...", "success");</script>';
     }
 
-    function deleteRecord () {
+    function deleteRecord ($error = NULL) {
       $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
       $sql="SELECT ProjectID, ProjectName, CreatedBy FROM project ORDER BY ProjectID";
       $result=mysqli_query($link,$sql);
@@ -139,7 +139,7 @@ class testcases
       </div>';
     }
 
-    function loadDetails ($posted_details_id) {
+    function loadDetails ($posted_details_id, $is_empty = NULL) {
      $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
      $sql="SELECT * FROM  testcases WHERE ProjectID = $posted_details_id ORDER BY ProjectID";
      $result=mysqli_query($link,$sql);
@@ -163,10 +163,9 @@ class testcases
 
          }
 
-         } else {
-           echo  '<script type="text/javascript">swal("Error", "Project empty, redirecting ...", "error");</script>';
-           header("refresh:2; url=front.php");
          }
+
+         
      }
 
 
@@ -200,12 +199,34 @@ class testcases
         <td>' ; echo @$created ; echo'</td>';
         echo '<td><input class="dc_3d_button orange" type="submit" name="Done" value="Done">
           <input class="dc_3d_button red" type="submit" name="Add"  value="Save"></td>';
+          $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
+          $sql="SELECT * FROM  testcases WHERE ProjectID = $posted_details_id ORDER BY ProjectID";
+          $result=mysqli_query($link,$sql);
+          $errornumrows = $result->num_rows;
+          if ($errornumrows != 0) {
+          while ($row = mysqli_fetch_assoc($result))
+          // Fetch rows one by one
+         { $ID = $row['id'];
+           echo '
+             <tr>
+               <th  scope="row"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $ID .  '</th>
+               <td>' ; echo $row['steps'] ; echo'</td>
+               <td>' ; echo $row['expected'] ; echo'</td>
+               <td>' ; echo $row['createdby'] ; echo'</td>';
+
+              echo'  <td>
+                      <input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row['id']; echo '">
+                      <input  type="hidden" id="Delete" value="Delete '; echo $row['id']; echo '">
+                    </td>
+                ';
+
+              }
      }
 
      function writeRecordAddTestcase ($posted_details_id, $steps, $expected) {
        $user = $_SESSION['username'];
        $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-       $sql="INSERT INTO testcases (steps, expected, createdby) VALUES ('$steps', '$expected', '$user')";
+       $sql="INSERT INTO testcases (steps, expected, createdby, ProjectID) VALUES ('$steps', '$expected', '$user', '$posted_details_id')";
        $result=mysqli_query($link,$sql);
        echo  '<script type="text/javascript">swal("Success!", "Record added, please wait...", "success");</script>';
      }
@@ -225,6 +246,6 @@ class testcases
     }
 }
 
-
+}
 
 ?>
