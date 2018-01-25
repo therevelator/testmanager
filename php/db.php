@@ -1,7 +1,7 @@
 <?php
 
-
-class testcases
+//undo renaming if too many things don't work. rename back to testcases
+class testcases1
 {
 
   function connect ()
@@ -52,11 +52,14 @@ class testcases
          <input class="dc_3d_button red" type="submit" name="Add"  value="Save"></td>';
     }
 
-    function writeRecord ($steps, $expected) {
+    function writeRecord ($steps, $expected, $posted_details_id) {
+      $posted_details_id = $_SESSION['posted_details_id'];
       $user = $_SESSION['username'];
       $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-      $sql="INSERT INTO testcases (steps, expected, createdby) VALUES ('$steps', '$expected', '$user')";
+      $sql="INSERT INTO testcases (steps, expected, createdby, ProjectID) VALUES ('$steps', '$expected', '$user', '$posted_details_id')";
       $result=mysqli_query($link,$sql);
+      // $sql="INSERT INTO testcases (ProjectID) VALUES ($posted_details_id)";
+      // $result=mysqli_query($link,$sql);
       echo  '<script type="text/javascript">swal("Success!", "Record added, please wait...", "success");</script>';
     }
 
@@ -65,61 +68,60 @@ class testcases
       $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
       $sql="SELECT id, casename, steps, expected, createdby FROM testcases ORDER BY id";
       $result=mysqli_query($link,$sql);
-      var_dump($_POST);
+      // var_dump($_POST);
       $sql1="DELETE FROM testcases WHERE id = '$deleteId'";
       $result=mysqli_query($link,$sql1);
-      echo  '<script type="text/javascript">swal("Success!", "Record deleted", "success");</script>';
-    }
 
-    function renderProjectView() {
-      echo '<br><br><br>';
-echo'<div align="center">
-  <table class="dc_table_s9" summary="Sample Table" style="width:80%;">
-    <caption>
-    Project view
-    </caption>
-    <thead>
-      <tr class="odd">
-        <th scope="col">Project Name</th>
-        <th scope="col">Project ID</th>
-        <th scope="col">Created By</th>
-        <th scope="col">...</th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <th scope="row">Total</th>
-        <td colspan="7">x projects, x testcases</td>
-      </tr>
-    </tfoot>
-    <tbody>
-      <tr class="odd">
-        <th scope="row">Burj Khalifa</th>
-        <td>UAE</td>
-        <td>Dubai</td>
-        <td><a href="#">details</a></td>
-      </tr>
-      <tr class="odd">
-        <th scope="row">Clock Tower Hotel</th>
-        <td>Saudi Arabia</td>
-        <td>Mecca</td>
-        <td><a href="#">details</a></td>
-      </tr>
-      <tr class="odd">
-        <th scope="row">Taipei 101</th>
-        <td>Taiwan</td>
-        <td>Taipei</td>
-        <td><a href="#">details</a></td>
-      </tr>
-      <tr class="odd">
-        <th scope="row">Financial Center</th>
-        <td>China</td>
-        <td>Shanghai</td>
-        <td><a href="#">details</a></td>
-      </tr>
-    </tbody>
-  </table>
-  </div>';}
+
+//     function renderProjectView() {
+//       echo '<br><br><br>';
+// echo'<div align="center">
+//   <table class="dc_table_s9" summary="Sample Table" style="width:80%;">
+//     <caption>
+//     Project view
+//     </caption>
+//     <thead>
+//       <tr class="odd">
+//         <th scope="col">Project Name</th>
+//         <th scope="col">Project ID</th>
+//         <th scope="col">Created By</th>
+//         <th scope="col">...</th>
+//       </tr>
+//     </thead>
+//     <tfoot>
+//       <tr>
+//         <th scope="row">Total</th>
+//         <td colspan="7">x projects, x testcases</td>
+//       </tr>
+//     </tfoot>
+//     <tbody>
+//       <tr class="odd">
+//         <th scope="row">Burj Khalifa</th>
+//         <td>UAE</td>
+//         <td>Dubai</td>
+//         <td><a href="#">details</a></td>
+//       </tr>
+//       <tr class="odd">
+//         <th scope="row">Clock Tower Hotel</th>
+//         <td>Saudi Arabia</td>
+//         <td>Mecca</td>
+//         <td><a href="#">details</a></td>
+//       </tr>
+//       <tr class="odd">
+//         <th scope="row">Taipei 101</th>
+//         <td>Taiwan</td>
+//         <td>Taipei</td>
+//         <td><a href="#">details</a></td>
+//       </tr>
+//       <tr class="odd">
+//         <th scope="row">Financial Center</th>
+//         <td>China</td>
+//         <td>Shanghai</td>
+//         <td><a href="#">details</a></td>
+//       </tr>
+//     </tbody>
+//   </table>
+//   </div>';}
     //   $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
     //   $sql="SELECT id, casename, steps, expected, createdby FROM testcases ORDER BY id";
     //   $result=mysqli_query($link,$sql);
@@ -150,5 +152,5 @@ echo'<div align="center">
       mysqli_close($link);
     }
 }
-
+}
 ?>

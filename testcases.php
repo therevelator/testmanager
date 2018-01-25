@@ -42,8 +42,11 @@ if ($logoutaction == "Logout") {
 
 			<a href="logout.php" class="dc_3d_button black"> Logout </a>
 		</div>
-	</body>
+	</form>
+
 <div id="example1div">
+	<form name="case6" class="form-signin" method="POST">
+
 <?php
 //table header
 require_once('php/add.php');
@@ -54,10 +57,15 @@ $editaction = "default";
 if (isset($_POST['Add'])) {
 	$editaction = $_POST['Add'];
 	require_once('php/db.php');
-	$testcases = new testcases();
+	$testcases = new testcases1();
 	$testcases->editTable();
 }
 
+?>
+</form>
+<form name="case7" class="form-signin" method="POST">
+
+<?php
 if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 //error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 //checks if input empty and writes to DB
@@ -69,21 +77,30 @@ if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 		echo '<script type="text/javascript">swal("Nope :)", "All fields are required...", "error");</script>';
 	}
 }
+?>
+</form>
+<form name="case8" class="form-signin" method="POST">
+<?php
 //Delete action
 if (isset($_POST['Delete']) && !empty($_POST["Delete"])) {
 	require_once('php/db.php');
-	$testcases = new testcases();
-	$testcases->deleteRecord();
+	$testcases = new testcases1();
+	$testcases->deleteRecord($error);
+	if(isset($error)) {
+		echo  '<script type="text/javascript">swal("Error", "Project not empty!", "error");</script>';
+
+	}
 }
 require_once('php/db.php');
-$testcases = new testcases();
+$testcases = new testcases1();
 $testcases->connect();
 $testcases->getTable();
-$testcases->close();
+// $testcases->close();
 
 ?>
-
+</form>
 </div>
+</body>
 <?php
  $testObject->endTable();
 

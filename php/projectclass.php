@@ -1,8 +1,17 @@
 <?php
 
+// $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
+// $sql="SELECT * FROM  testcases ORDER BY ProjectID";
+// $result=mysqli_query($link,$sql);
+// foreach ($result as $res) {
+//   echo "<pre>";
+//   print_r ($res);
+//   echo "</pre>";
+//   global $john = $res;
 
 class testcases
 {
+
 
   function connect ()
   {
@@ -21,24 +30,28 @@ class testcases
     $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
     $sql="SELECT ProjectID, ProjectName, CreatedBy FROM project ORDER BY ProjectID";
     $result=mysqli_query($link,$sql);
-
-    while ($row = mysqli_fetch_assoc($result))
-    // Fetch one and one row
-   { $ID = $row['ProjectID'];
-     echo '
-       <tr>
-         <th  scope="row"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $ID .  '</th>
-         <td>' ; echo $row['ProjectName'] ; echo'</td>
-         <td>' ; echo $row['CreatedBy'] ; echo'</td>';
-     echo'  <td>
-                <input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $ID; echo '">
-                <input class="dc_3d_button black" type="submit" name="Details" value="'; echo $ID; echo '">
-                <input  type="hidden" name="DeleteID" value="'; $_SESSION['ID'] =  $ID; echo $_SESSION['ID']; echo '">
-                <input  type="hidden" name="Details" value="'; $_SESSION['ID'] =  $ID; echo $_SESSION['ID']; echo '">
-              </td>
-          ';
-   }
+    //set parameters to use later in second foreach
+    if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+      echo '
+        <tr>
+          <td>' ; echo $row["ProjectID"] ; echo'</td>
+          <td>' ; echo $row["ProjectName"] ; echo'</td>
+          <td>' ; $row["CreatedBy"] ; echo'</td>
+          <td><input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row["ProjectID"]; echo '">
+          <input class="dc_3d_button black" type="submit" name="Details" value="'; echo $row["ProjectID"]; echo '"></td>';
+        }
+    }
 }
+
+
+
+
+
+
+
+
 
    function editTable () {
      echo '
@@ -69,58 +82,16 @@ class testcases
       // var_dump($_POST);
       $sql1="DELETE FROM project WHERE ProjectID = '$deleteId'";
       $result=mysqli_query($link,$sql1);
-      echo  '<script type="text/javascript">swal("Success!", "Record deleted", "success");</script>';
-    }
+      $error = mysqli_errno($link);
+      if (!$error) {
+        echo  '<script type="text/javascript">swal("Success!", "Record deleted", "success");</script>';
+      } else {
+        echo  '<script type="text/javascript">swal("Error", "Project not empty!", "error");</script>';
+      }
 
-    function renderProjectView() {
-      echo '<br><br><br>';
-echo'<div align="center">
-  <table class="dc_table_s9" summary="Sample Table" style="width:80%;">
-    <caption>
-    Project view
-    </caption>
-    <thead>
-      <tr class="odd">
-        <th scope="col">Project Name</th>
-        <th scope="col">Project ID</th>
-        <th scope="col">Created By</th>
-        <th scope="col">...</th>
-      </tr>
-    </thead>
-    <tfoot>
-      <tr>
-        <th scope="row">Total</th>
-        <td colspan="7">x projects, x testcases</td>
-      </tr>
-    </tfoot>
-    <tbody>
-      <tr class="odd">
-        <th scope="row">Burj Khalifa</th>
-        <td>UAE</td>
-        <td>Dubai</td>
-        <td><a href="#">details</a></td>
-      </tr>
-      <tr class="odd">
-        <th scope="row">Clock Tower Hotel</th>
-        <td>Saudi Arabia</td>
-        <td>Mecca</td>
-        <td><a href="#">details</a></td>
-      </tr>
-      <tr class="odd">
-        <th scope="row">Taipei 101</th>
-        <td>Taiwan</td>
-        <td>Taipei</td>
-        <td><a href="#">details</a></td>
-      </tr>
-      <tr class="odd">
-        <th scope="row">Financial Center</th>
-        <td>China</td>
-        <td>Shanghai</td>
-        <td><a href="#">details</a></td>
-      </tr>
-    </tbody>
-  </table>
-  </div>';}
+  }
+
+
     //   $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
     //   $sql="SELECT id, casename, steps, expected, createdby FROM testcases ORDER BY id";
     //   $result=mysqli_query($link,$sql);
@@ -168,6 +139,76 @@ echo'<div align="center">
       </div>';
     }
 
+    function loadDetails ($posted_details_id) {
+     $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
+     $sql="SELECT * FROM  testcases WHERE ProjectID = $posted_details_id ORDER BY ProjectID";
+     $result=mysqli_query($link,$sql);
+     $errornumrows = $result->num_rows;
+     if ($errornumrows != 0) {
+     while ($row = mysqli_fetch_assoc($result))
+     // Fetch rows one by one
+    { $ID = $row['id'];
+      echo '
+        <tr>
+          <th  scope="row"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $ID .  '</th>
+          <td>' ; echo $row['steps'] ; echo'</td>
+          <td>' ; echo $row['expected'] ; echo'</td>
+          <td>' ; echo $row['createdby'] ; echo'</td>';
+
+         echo'  <td>
+                 <input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row['id']; echo '">
+                 <input  type="hidden" id="Delete" value="Delete '; echo $row['id']; echo '">
+               </td>
+           ';
+
+         }
+
+         } else {
+           echo  '<script type="text/javascript">swal("Error", "Project empty, redirecting ...", "error");</script>';
+           header("refresh:2; url=front.php");
+         }
+     }
+
+
+
+
+    function addTestcaseHeader() {
+      echo "<br><br><br>";
+      echo '
+    <div align="center">
+      <table class="dc_table_s7" summary="TestCase Table" style="width:60%;">
+        <thead>
+            <tr>
+              <th style="width: 80px" scope="col">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ID</th>
+              <th style="width: 320px" scope="col">Steps</th>
+              <th scope="col">Expected Result</th>
+              <th scope="col">Created By</th>
+              <th style="width: 100px;" scope="col">Action</th>
+            </tr>
+          </thead>
+        <tbody>
+      </div>';
+    }
+
+
+    function editTableAddTestcase ($posted_details_id) {
+      echo '
+      <tr>
+        <th scope="row">' ; echo @$id ; echo '</th>
+        <td><input id="example1div" type="text" name="Steps"></td>
+        <td><input id="example1div" type="text" name="Expected"></td>
+        <td>' ; echo @$created ; echo'</td>';
+        echo '<td><input class="dc_3d_button orange" type="submit" name="Done" value="Done">
+          <input class="dc_3d_button red" type="submit" name="Add"  value="Save"></td>';
+     }
+
+     function writeRecordAddTestcase ($posted_details_id, $steps, $expected) {
+       $user = $_SESSION['username'];
+       $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
+       $sql="INSERT INTO testcases (steps, expected, createdby) VALUES ('$steps', '$expected', '$user')";
+       $result=mysqli_query($link,$sql);
+       echo  '<script type="text/javascript">swal("Success!", "Record added, please wait...", "success");</script>';
+     }
 
 
     // function buttons () {
@@ -183,5 +224,7 @@ echo'<div align="center">
     ';
     }
 }
+
+
 
 ?>
