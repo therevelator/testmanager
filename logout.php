@@ -4,5 +4,6 @@
 $_SESSION["userauth"] = "false";
 echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 header("refresh:2; url=index.php");
-}
+session_unset();
+session_destroy();
 ?>
