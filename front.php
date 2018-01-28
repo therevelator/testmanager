@@ -8,6 +8,9 @@
 <link rel="stylesheet" href="css/sweetalert.css" />
 <link type="text/css" rel="stylesheet" href="css/dc_tables1.css" />
 <link type="text/css" rel="stylesheet" href="css/dc_tables2.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <?php
 
@@ -26,6 +29,7 @@ if ($logoutaction == "Logout") {
 		require_once('logout.php');
 }
 ?>
+
 <body>
 	<form name="case" class="form-signin" method="POST">
 		<div align="center">
@@ -54,18 +58,26 @@ if (isset($_POST['Add'])) {
 	$testObject = new testcases();
 	$testObject->editTable();
 }
+
+if (isset($_POST['AddSection'])) {
+	$editaction = $_POST['AddSection'];
+	require_once('php/projectclass.php');
+	$testObject = new testcases();
+	$testObject->editSection();
+	// var_dump($_POST); die();
+}
 ?>
 </form>
 <form name="case2" class="form-signin" method="POST">
 <?php
 if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
+
 //error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 //checks if input empty and writes to DB
-	$projectname = $_POST['Project_Name'];
-
+	@$projectname = $_POST['Project_Name'];
 	if (!empty($_POST['Project_Name'])) {
 		$testObject->writeRecord($projectname);
-	}else {
+	} else {
 		echo '<script type="text/javascript">swal("Nope :)", "All fields are required...", "error");</script>';
 	}
 }
@@ -111,8 +123,39 @@ require_once('php/projectclass.php');
 $testObject = new testcases();
 $testObject->connect();
 $testObject->getTable();
-$testObject->close();
+$link = mysqli_connect("127.0.0.1", "root", "", "johnny");
+//this bit is for pagination. add when possible
+if (isset($_GET['pageno'])) {
+		$pageno = $_GET['pageno'];
+} else {
+		$pageno = 1;
+}
+$no_of_records_per_page = 7;
+$offset = ($pageno-1) * $no_of_records_per_page;
+$link = mysqli_connect("127.0.0.1", "root", "", "johnny");
+
+// $result=mysqli_query($link,$sql);
+//set parameters to use later in second foreach
+// if ($result->num_rows > 0) {
+// output data of each row
+$total_pages_sql = "SELECT COUNT(*) FROM project";
+$result = mysqli_query($link,$total_pages_sql);
+$total_rows = mysqli_fetch_array($result)[0];
+$total_pages = ceil($total_rows / $no_of_records_per_page);
 ?>
+
+</div>
+<div>
+<ul class="pagination">
+		<li><a href="?pageno=1">First</a></li>
+		<li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
+				<a href="<?php if($pageno <= 1){ echo '#'; } else { echo "?pageno=".($pageno - 1); } ?>">Prev</a>
+		</li>
+		<li class="<?php if($pageno >= $total_pages){ echo 'disabled'; } ?>">
+				<a href="<?php if($pageno >= $total_pages){ echo '#'; } else { echo "?pageno=".($pageno + 1); } ?>">Next</a>
+		</li>
+		<li><a href="?pageno=<?php echo $total_pages; ?>">Last</a></li>
+</ul>
 </div>
 </body>
 <?php
@@ -121,10 +164,7 @@ $testObject->close();
  //CUSTOMIZE TO VIEW LIST OF projects
  //CUSTOMIZE TO ADD SUBSECTIONS
  //CUSTOMIZE TO ADD PROJECTS (1 LEVEL UP FROM CURRENT PROJECTS)
- //add proper user auth
-}else{
- echo "Please check session variables";
- header('Location: index.php');
 }
-var_dump($_SESSION);
+// var_dump($_SESSION);
 ?>
+<body>

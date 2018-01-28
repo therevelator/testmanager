@@ -34,6 +34,7 @@ if(isset($loginaction)) {
   require_once('php/login.php');
   $login = new login();
   $login->userauth($username, $password);
+  $_SESSION['username'] = $username;
 }else {
   $_SESSION['userauth'] = "false";
 }

@@ -26,23 +26,46 @@ class testcases
     }
   }
 
+
+
   function getTable () {
+    if (isset($_GET['pageno'])) {
+        $pageno = $_GET['pageno'];
+    } else {
+        $pageno = 1;
+    }
+    $no_of_records_per_page = 7;
+    $offset = ($pageno-1) * $no_of_records_per_page;
     $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-    $sql="SELECT ProjectID, ProjectName, createdby FROM project ORDER BY ProjectID";
-    $result=mysqli_query($link,$sql);
+
+    // $result=mysqli_query($link,$sql);
     //set parameters to use later in second foreach
-    if ($result->num_rows > 0) {
+    // if ($result->num_rows > 0) {
     // output data of each row
-    while($row = $result->fetch_assoc()) {
+    $total_pages_sql = "SELECT COUNT(*) FROM project";
+    $result = mysqli_query($link,$total_pages_sql);
+    $total_rows = mysqli_fetch_array($result)[0];
+    $total_pages = ceil($total_rows / $no_of_records_per_page);
+    
+    // var_dump($offset);
+    $sql="SELECT * FROM project ORDER BY ProjectID LIMIT $offset, $no_of_records_per_page";
+    $res_data = mysqli_query($link,$sql);
+    while($row = mysqli_fetch_array($res_data)){
+
+
+
+
       echo '
         <tr>
           <td>' ; echo $row["ProjectID"] ; echo'</td>
           <td>' ; echo $row["ProjectName"] ; echo'</td>
-          <td>' ; echo $row["createdby"] ; echo'</td>
+          <td>' ; echo $row["Section"] ; echo'</td>
+          <td>' ; echo $row['CreatedBy'] ; echo'</td>
           <td><input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row["ProjectID"]; echo '">
           <input class="dc_3d_button black" type="submit" name="Details" value="'; echo $row["ProjectID"]; echo '"></td>';
-        }
+
     }
+    mysqli_close($link);
 }
 
 
@@ -52,12 +75,25 @@ class testcases
      <tr>
        <th scope="row">' ; echo @$id ; echo '</th>
        <td><input id="example1div" type="text" name="Project Name"></td>
+       <td>' ; echo @$section ; echo'</td>
        <td>' ; echo @$created ; echo'</td>';
        echo '<td><input class="dc_3d_button orange" type="submit" name="Done" value="Done">
-         <input class="dc_3d_button red" type="submit" name="Add"  value="Save"></td>';
+         <input class="dc_3d_button green" type="submit" name="Add"  value="Save"></td>';
     }
 
-    function writeRecord ($projectname) {
+    function editSection ()
+    {
+      echo '
+      <tr>
+        <th scope="row">' ; echo @$id ; echo '</th>
+        <td>' ; echo @$projectname ; echo'</td>
+        <td><input id="example1div" type="text" name="SectionName"></td>
+        <td>' ; echo @$created ; echo'</td>';
+        echo '<td><input class="dc_3d_button orange" type="submit" name="Done" value="Done">
+          <input class="dc_3d_button green" type="submit" name="Add"  value="Save"></td>';
+     }
+
+    function writeRecord ($projectname = NULL) {
       $user = $_SESSION['username'];
       $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
       $sql="INSERT INTO project (ProjectName, CreatedBy) VALUES ('$projectname', '$user')";
@@ -99,6 +135,7 @@ class testcases
             <tr>
               <th style="width: 80px; text-align: center" scope="col">ID</th>
               <th style="width: 100px; text-align: center" scope="col">Project Name</th>
+              <th style="width: 100px; text-align: center" scope="col">Section</th>
               <th style="text-align: center" scope="col">Created By</th>
               <th style="width: 200px;" scope="col">Action</th>
             </tr>
@@ -207,7 +244,7 @@ class testcases
     ';
     }
 }
-
 }
+
 
 ?>
