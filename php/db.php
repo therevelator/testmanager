@@ -52,11 +52,12 @@ class testcases1
          <input class="dc_3d_button red" type="submit" name="Add"  value="Save"></td>';
     }
 
-    function writeRecord ($steps, $expected, $posted_details_id) {
+    function writeRecord ($steps, $expected, $posted_details_id = NULL) {
+      $timestamp = date("Y-m-d H:i:s");
       $posted_details_id = $_SESSION['posted_details_id'];
       $user = $_SESSION['username'];
       $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-      $sql="INSERT INTO testcases (steps, expected, createdby, ProjectID) VALUES ('$steps', '$expected', '$user', '$posted_details_id')";
+      $sql="INSERT INTO testcases (steps, expected, createdby, ProjectID, CreatedTimestamp) VALUES ('$steps', '$expected', '$user', '$posted_details_id', '$timestamp')";
       $result=mysqli_query($link,$sql);
       // $sql="INSERT INTO testcases (ProjectID) VALUES ($posted_details_id)";
       // $result=mysqli_query($link,$sql);

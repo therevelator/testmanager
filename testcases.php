@@ -30,16 +30,11 @@ if ($logoutaction == "Logout") {
 <body>
 	<form name="case" class="form-signin" method="POST">
 		<div align="center">
-			<!-- <a href="php/add.php" class="dc_3d_button black"> Logout </a> -->
-			<a href="front.php" class="dc_3d_button black"> Home </a>
-
-			<a href="project.php" class="dc_3d_button black"> Project </a>
-			<!-- <a href="logout.php" class="dc_3d_button black"> Logout </a>
-			<a href="logout.php" class="dc_3d_button black"> Logout </a> -->
-			<a href="testcases.php" class="dc_3d_button black"> TestCase </a>
-
+			<a href="main.php" class="dc_3d_button black"> Home </a>
+			<a href="front.php" class="dc_3d_button black"> Projects </a>
+			<a href="project.php" class="dc_3d_button black"> TestCases </a>
+			<a href="testcases.php" class="dc_3d_button black"> Details </a>
 			<input class="dc_3d_button green" type="submit" name="Add" value="Add">
-
 			<a href="logout.php" class="dc_3d_button black"> Logout </a>
 		</div>
 	</form>
@@ -69,10 +64,11 @@ if (isset($_POST['Add'])) {
 if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 //error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 //checks if input empty and writes to DB
+$posted_details_id = $_SESSION['posted_details_id'];
 	$steps = $_POST['Steps'];
 	$expected = $_POST['Expected'];
 	if (!empty($_POST['Steps']) && !empty($_POST['Expected'])) {
-		$testcases->writeRecord($steps, $expected);
+		$testcases->writeRecord($steps, $expected, $posted_details_id);
 	}else {
 		echo '<script type="text/javascript">swal("Nope :)", "All fields are required...", "error");</script>';
 	}

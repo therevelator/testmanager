@@ -1,6 +1,7 @@
 <head>
 <link href="css/dc_elite_buttons.css" rel="stylesheet" type="text/css" />
 <link href="css/dc_buttons_transp.css" rel="stylesheet" type="text/css" />
+<link href="css/search.css" rel="stylesheet" type="text/css" />
 <link href="css/index.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="http://cdn.dcodes.net/2/3d_buttons/css/dc_3d_buttons.css" />
 <script src="js/sweetalert.min.js"></script>
@@ -33,16 +34,23 @@ if ($logoutaction == "Logout") {
 <body>
 	<form name="case" class="form-signin" method="POST">
 		<div align="center">
-			<a href="main.php" class="dc_3d_button black"> Projects </a>
+			<a href="main.php" class="dc_3d_button black"> Home </a>
 			<a href="front.php" class="dc_3d_button black"> Projects </a>
 			<a href="project.php" class="dc_3d_button black"> TestCases </a>
-			<a href="testcases.php" class="dc_3d_button black"> Details
+			<a href="testcases.php" class="dc_3d_button black"> Details </a>
 			<input class="dc_3d_button green" type="submit" name="Add" value="Add">
 			<a href="logout.php" class="dc_3d_button black"> Logout </a>
+			<!-- <div align="right" style="padding-right: 40px; size: 100px;">
+				<form  method="GET">
+					<input class="effect-7" type="text" size="30" onkeyup="showResult(this.value)"  />
+				</form>
+			</div> -->
+			<!-- this is the future search: https://www.w3schools.com/php/php_ajax_livesearch.asp -->
 		</div>
 	</form>
 
 <div id="example1div">
+
 <form name="case1" class="form-signin" method="POST">
 
 <?php
