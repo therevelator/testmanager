@@ -20,6 +20,10 @@ session_start();
 //login module using session variable
 if ($_SESSION['userauth'] == "true") {
 	echo " ";
+}else{
+	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
+	header('Location: index.php');
+}
 
 //logout action
 $logoutaction = "default";
@@ -40,7 +44,7 @@ if ($logoutaction == "Logout") {
 			<input class="dc_3d_button green" type="submit" name="Add" value="Add">
 			<a href="logout.php" class="dc_3d_button black"> Logout </a>
 		</div>
-	</form>
+
 	</body>
 <div id="example1div">
 <?php
@@ -68,6 +72,7 @@ if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 //error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 //checks if input empty and writes to DB
 	$steps = $_POST['Steps'];
+  var_dump($_POST);
 	$expected = $_POST['Expected'];
 	if (!empty($_POST['Steps']) && !empty($_POST['Expected'])) {
 		$posted_details_id = $_SESSION['posted_details_id'];
@@ -87,10 +92,10 @@ require_once('php/add.php');
 $testcases = new Table();
 // $testcases->connect();
 $testObject->getTable1($posted_details_id);
-}else{
-	echo "Please check session variables";
-	header('Location: index.php');
-}
+// }else{
+// 	echo "Please check session variables";
+// 	header('Location: index.php');
+// }
 $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
 //this bit is for pagination. add when possible
 if (isset($_GET['pageno'])) {
@@ -126,3 +131,4 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
 </ul>
 </div>
 </body>
+</form>

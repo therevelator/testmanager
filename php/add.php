@@ -1,4 +1,14 @@
 <?php
+
+if ($_SESSION['userauth'] == "true") {
+	echo " ";
+}else{?>
+
+	<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>
+  <?php
+	header('Location: ../index.php');
+}
+
 class Table {
 
 function addHeader() {
@@ -37,7 +47,7 @@ function add($id = NULL, $casename = NULL, $steps = NULL, $expected = NULL, $cre
 
 }
 
-function getTable1 ($posted_details_id) {
+function getTable1 ($posted_details_id = NULL) {
   if (isset($_GET['pageno'])) {
       $pageno = $_GET['pageno'];
   } else {
@@ -75,7 +85,7 @@ function getTable1 ($posted_details_id) {
             </td>
         ';
     }
-}  else {
+		}  else {
   echo  '<script type="text/javascript">swal("Nothing to see here", "Add some test cases", "warning");</script>';
   // $_SESSION['is_empty'] = "true";
   }

@@ -1,5 +1,10 @@
 <?php
-
+if ($_SESSION['userauth'] == "true") {
+	echo " ";
+}else{
+	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
+	header('Location: ../index.php');
+}
 //undo renaming if too many things don't work. rename back to testcases
 class testcases1
 {

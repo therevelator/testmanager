@@ -8,6 +8,12 @@
 //   print_r ($res);
 //   echo "</pre>";
 //   global $john = $res;
+if ($_SESSION['userauth'] == "true") {
+	echo " ";
+}else{
+	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
+	header('Location: ../index.php');
+}
 
 class testcases
 {
@@ -46,15 +52,11 @@ class testcases
     $result = mysqli_query($link,$total_pages_sql);
     $total_rows = mysqli_fetch_array($result)[0];
     $total_pages = ceil($total_rows / $no_of_records_per_page);
-    
+		$mainID = $_SESSION['posted_main_id'];
     // var_dump($offset);
-    $sql="SELECT * FROM project ORDER BY ProjectID LIMIT $offset, $no_of_records_per_page";
+    $sql="SELECT * FROM project WHERE mainID = $mainID ORDER BY ProjectID LIMIT $offset, $no_of_records_per_page";
     $res_data = mysqli_query($link,$sql);
     while($row = mysqli_fetch_array($res_data)){
-
-
-
-
       echo '
         <tr>
           <td>' ; echo $row["ProjectID"] ; echo'</td>
@@ -74,7 +76,7 @@ class testcases
      echo '
      <tr>
        <th scope="row">' ; echo @$id ; echo '</th>
-       <td><input id="example1div" type="text" name="Project Name"></td>
+       <td><input id="example1div" type="text" name="Testcase Name"></td>
        <td>' ; echo @$section ; echo'</td>
        <td>' ; echo @$created ; echo'</td>';
        echo '<td><input class="dc_3d_button orange" type="submit" name="Done" value="Done">
@@ -134,7 +136,7 @@ class testcases
         <thead>
             <tr>
               <th style="width: 80px; text-align: center" scope="col">ID</th>
-              <th style="width: 100px; text-align: center" scope="col">Project Name</th>
+              <th style="width: 100px; text-align: center" scope="col">TestCase Name</th>
               <th style="width: 100px; text-align: center" scope="col">Section</th>
               <th style="text-align: center" scope="col">Created By</th>
               <th style="width: 200px;" scope="col">Action</th>

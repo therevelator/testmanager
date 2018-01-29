@@ -29,6 +29,8 @@ if (isset($_POST['Logout'])) {
 if ($logoutaction == "Logout") {
 		require_once('logout.php');
 }
+$timestamp = date("Y-m-d H:i:s");
+var_dump($timestamp);
 ?>
 
 <body>
@@ -83,8 +85,10 @@ if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 
 //error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 //checks if input empty and writes to DB
-	@$projectname = $_POST['Project_Name'];
-	if (!empty($_POST['Project_Name'])) {
+	@$projectname = $_POST['Testcase_Name'];
+  var_dump($_POST);
+	if (!empty($_POST['Testcase_Name'])) {
+
 		$testObject->writeRecord($projectname);
 	} else {
 		echo '<script type="text/javascript">swal("Nope :)", "All fields are required...", "error");</script>';
@@ -142,11 +146,6 @@ if (isset($_GET['pageno'])) {
 $no_of_records_per_page = 7;
 $offset = ($pageno-1) * $no_of_records_per_page;
 $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-
-// $result=mysqli_query($link,$sql);
-//set parameters to use later in second foreach
-// if ($result->num_rows > 0) {
-// output data of each row
 $total_pages_sql = "SELECT COUNT(*) FROM project";
 $result = mysqli_query($link,$total_pages_sql);
 $total_rows = mysqli_fetch_array($result)[0];
@@ -173,6 +172,11 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
  //CUSTOMIZE TO VIEW LIST OF projects
  //CUSTOMIZE TO ADD SUBSECTIONS
  //CUSTOMIZE TO ADD PROJECTS (1 LEVEL UP FROM CURRENT PROJECTS)
+} else {
+	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
+	header("refresh:2; url=index.php");
+	$_SESSION['userauth'] = "false";
+
 }
 // var_dump($_SESSION);
 ?>

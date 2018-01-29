@@ -3,7 +3,7 @@
 //if (isset($_POST['logout'])) {
 session_start();
 	$_SESSION['userauth'] = "false";
-	header('Location: index.php');
+	header('Location: ../index.php');
 	echo "Logged out";
 //}
 ?>

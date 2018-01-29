@@ -18,7 +18,9 @@
 
 session_start();
 //login module using session variable
-if ($_SESSION["userauth"] == "true") {
+if ($_SESSION['userauth'] == "true") {
+
+
 
 //logout action
 $logoutaction = "default";
@@ -100,31 +102,26 @@ $testObject->deleteRecord();
 <form name="case4" class="form-signin" method="POST">
 <?php
 if (isset($_POST['Details'])) {
-	require_once('php/projectclass.php');
-	$testObject = new testcases();
-	$posted_details_id = $_POST['Details'];
-	$_SESSION['posted_details_id'] = $posted_details_id;
-	// var_dump($posted_details_id);die();
+	require_once('php/mainclass.php');
+	$testObject = new main();
+
+	$posted_main_id = $_POST['Details'];
+	$_SESSION['posted_main_id'] = $posted_main_id;
+  var_dump($_POST);
 	echo  '<script type="text/javascript">swal("Please wait...", "Getting Project Details", "warning");</script>';
-	header("refresh:2; url=details.php");
-
-
-	//var_dump($_POST);
-
-
-	// var_dump($_SESSION['ID']);
-	//$testObject->deleteRecord();
-	//find a way to pass the ID of the project(finally worked as $_POST['Delete']);
+	header("refresh:2; url=front.php");
 }
+
 ?>
 </form>
 
 <?php
 //connects to the DB and gets the rows after they were added above
-require_once('php/projectclass.php');
-$testObject = new testcases();
+require_once('php/mainclass.php');
+$testObject = new main();
 $testObject->connect();
-$testObject->getTable();
+$posted_main_id = $_SESSION['posted_details_id'];
+$testObject->getTable1($posted_main_id);
 $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
 //this bit is for pagination. add when possible
 if (isset($_GET['pageno'])) {
@@ -161,12 +158,15 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
 </div>
 </body>
 <?php
+}else{
+	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
+	header('Location: index.php');
+}
 //echoes the </table> tag and the </div>
  // $testObject->endTable();
  //CUSTOMIZE TO VIEW LIST OF projects
  //CUSTOMIZE TO ADD SUBSECTIONS
  //CUSTOMIZE TO ADD PROJECTS (1 LEVEL UP FROM CURRENT PROJECTS)
-}
 // var_dump($_SESSION);
 ?>
 <body>
