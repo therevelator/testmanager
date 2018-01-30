@@ -49,6 +49,6 @@ if(isset($loginaction)) {
 //   echo  '<script type="text/javascript">swal("Invalid Username / Password", "Please check the username / password combination", "error");</script>';
 //   unset($_SESSION['username']);
 // }
-var_dump($_SESSION);
+// var_dump($_SESSION);
 
 ?>

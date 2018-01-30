@@ -27,7 +27,7 @@ class login {
       $_SESSION["userauth"] = "false";
     }else{
       echo  '<script type="text/javascript">swal("Successful, please wait...", "Getting User Details", "success");</script>';
-      header("refresh:2; url=front.php");
+      header("refresh:1; url=main.php");
       $_SESSION["userauth"] = "true";
     }
 

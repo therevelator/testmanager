@@ -119,7 +119,7 @@ function loadDetails ($posted_details_id) {
 
      } else {
        echo  '<script type="text/javascript">swal("Error", "Project empty, redirecting ...", "error");</script>';
-       header("refresh:2; url=front.php");
+       header("refresh:1; url=front.php");
      }
  }
 

@@ -46,7 +46,6 @@ class main
     <tr>
       <th scope="row">' ; echo @$id ; echo '</th>
       <td><input id="example1div" type="text" name="Project Name"></td>
-      <td>' ; echo @$section ; echo'</td>
       <td>' ; echo @$created ; echo'</td>';
       echo '<td><input class="dc_3d_button orange" type="submit" name="Done" value="Done">
         <input class="dc_3d_button green" type="submit" name="Add"  value="Save"></td>';
@@ -57,7 +56,7 @@ class main
     <tr>
       <th scope="row">' ; echo @$id ; echo '</th>
       <td>' ; echo @$projectname ; echo'</td>
-      <td><input id="example1div" type="text" name="SectionName"></td>
+      <td><input id="example1div" type="text" name="MainName"></td>
       <td>' ; echo @$created ; echo'</td>';
       echo '<td><input class="dc_3d_button orange" type="submit" name="Done" value="Done">
         <input class="dc_3d_button green" type="submit" name="Add"  value="Save"></td>';
@@ -76,7 +75,7 @@ class main
 	  $result = mysqli_query($link,$total_pages_sql);
 	  $total_rows = mysqli_fetch_array($result)[0];
 	  $total_pages = ceil($total_rows / $no_of_records_per_page);
-	  $posted_main_id = $_SESSION['posted_details_id'];
+	  @$posted_main_id = $_SESSION['posted_details_id'];
 	  $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
 	  $sql="SELECT * FROM  main LIMIT $offset, $no_of_records_per_page";
 	  $result=mysqli_query($link,$sql);
@@ -103,7 +102,36 @@ class main
 	  }
 	}
 
+	function writeRecord ($mainName) {
+		$timestamp = date("Y-m-d H:i:s");
+		$mainName = $_POST['Project_Name'];
+		$user = $_SESSION['username'];
+		$link = mysqli_connect("127.0.0.1", "root", "", "johnny");
+		$sql="INSERT INTO main (mainName, CreatedBy, mainTimeStamp) VALUES ('$mainName', '$user', '$timestamp')";
+		$result=mysqli_query($link,$sql);
+		echo mysqli_error($link);
+		echo  '<script type="text/javascript">swal("Success!", "Record added, please wait...", "success");</script>';
+	}
 
+	function deleteRecord ($error = NULL) {
+		$link = mysqli_connect("127.0.0.1", "root", "", "johnny");
+		$sql="SELECT mainID, mainName, CreatedBy FROM main ORDER BY mainID";
+		$result=mysqli_query($link,$sql);
+		while ($row = mysqli_fetch_assoc($result))
+		// Fetch one and one row
+	 {
+		@$deleteId = $_POST['Delete']; }
+		// var_dump($_POST);
+		$sql1="DELETE FROM main WHERE mainID = '$deleteId'";
+		$result=mysqli_query($link,$sql1);
+		$error = mysqli_errno($link);
+		if (!$error) {
+			echo  '<script type="text/javascript">swal("Success!", "Record deleted", "success");</script>';
+		} else {
+			echo  '<script type="text/javascript">swal("Error", "Project not empty!", "error");</script>';
+		}
+
+	}
 
 }
 

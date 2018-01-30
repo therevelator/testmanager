@@ -52,7 +52,7 @@ class testcases
     $result = mysqli_query($link,$total_pages_sql);
     $total_rows = mysqli_fetch_array($result)[0];
     $total_pages = ceil($total_rows / $no_of_records_per_page);
-		$mainID = $_SESSION['posted_main_id'];
+		@$mainID = $_SESSION['posted_main_id'];
     // var_dump($offset);
     $sql="SELECT * FROM project WHERE mainID = $mainID ORDER BY ProjectID LIMIT $offset, $no_of_records_per_page";
     $res_data = mysqli_query($link,$sql);
@@ -95,11 +95,12 @@ class testcases
           <input class="dc_3d_button green" type="submit" name="Add"  value="Save"></td>';
      }
 
-    function writeRecord ($projectname = NULL) {
+    function writeRecord ($projectname = NULL, $mainID) {
       $user = $_SESSION['username'];
       $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-      $sql="INSERT INTO project (ProjectName, CreatedBy) VALUES ('$projectname', '$user')";
+      $sql="INSERT INTO project (ProjectName, CreatedBy, mainID) VALUES ('$projectname', '$user', '$mainID')";
       $result=mysqli_query($link,$sql);
+			echo mysqli_error($link);
       echo  '<script type="text/javascript">swal("Success!", "Record added, please wait...", "success");</script>';
     }
 

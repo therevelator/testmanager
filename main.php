@@ -19,8 +19,11 @@
 session_start();
 //login module using session variable
 if ($_SESSION['userauth'] == "true") {
-
-
+	echo " ";
+}else{
+	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
+	header('Location: index.php');
+}
 
 //logout action
 $logoutaction = "default";
@@ -76,11 +79,10 @@ if (isset($_POST['AddSection'])) {
 <?php
 if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 
-//error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 //checks if input empty and writes to DB
-	@$projectname = $_POST['Project_Name'];
+	@$mainName = $_POST['Project_Name'];
 	if (!empty($_POST['Project_Name'])) {
-		$testObject->writeRecord($projectname);
+		$testObject->writeRecord($mainName);
 	} else {
 		echo '<script type="text/javascript">swal("Nope :)", "All fields are required...", "error");</script>';
 	}
@@ -91,8 +93,8 @@ if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 <?php
 //Delete action
 if (isset($_POST['Delete'])) {
-	require_once('php/projectclass.php');
-	$testObject = new testcases();
+	require_once('php/mainclass.php');
+	$testObject = new main();
 	// var_dump($_SESSION['ID']);
 $testObject->deleteRecord();
 	//find a way to pass the ID of the project(finally worked as $_POST['Delete']);
@@ -107,9 +109,9 @@ if (isset($_POST['Details'])) {
 
 	$posted_main_id = $_POST['Details'];
 	$_SESSION['posted_main_id'] = $posted_main_id;
-  var_dump($_POST);
+  // var_dump($_POST);
 	echo  '<script type="text/javascript">swal("Please wait...", "Getting Project Details", "warning");</script>';
-	header("refresh:2; url=front.php");
+	header("refresh:1; url=front.php");
 }
 
 ?>
@@ -120,7 +122,7 @@ if (isset($_POST['Details'])) {
 require_once('php/mainclass.php');
 $testObject = new main();
 $testObject->connect();
-$posted_main_id = $_SESSION['posted_details_id'];
+@$posted_main_id = $_SESSION['posted_main_id'];
 $testObject->getTable1($posted_main_id);
 $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
 //this bit is for pagination. add when possible
@@ -158,10 +160,10 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
 </div>
 </body>
 <?php
-}else{
-	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
-	header('Location: index.php');
-}
+// }else{
+// 	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
+// 	header('Location: index.php');
+// }
 //echoes the </table> tag and the </div>
  // $testObject->endTable();
  //CUSTOMIZE TO VIEW LIST OF projects

@@ -72,7 +72,7 @@ if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 //error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 //checks if input empty and writes to DB
 	$steps = $_POST['Steps'];
-  var_dump($_POST);
+  // var_dump($_POST);
 	$expected = $_POST['Expected'];
 	if (!empty($_POST['Steps']) && !empty($_POST['Expected'])) {
 		$posted_details_id = $_SESSION['posted_details_id'];

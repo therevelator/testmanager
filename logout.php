@@ -22,7 +22,7 @@ echo  '';
 @session_start();
 $_SESSION["userauth"] = "false";
 echo  '<script type="text/javascript">swal("Logged Out!", "Redirecting to main page, please wait...", "warning");</script>';
-header("refresh:2; url=index.php");
+header("refresh:1; url=index.php");
 session_unset();
 session_destroy();
 ?>

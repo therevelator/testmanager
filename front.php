@@ -19,7 +19,12 @@
 
 session_start();
 //login module using session variable
-if ($_SESSION["userauth"] == "true") {
+if ($_SESSION['userauth'] == "true") {
+	echo " ";
+}else{
+	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
+	header('Location: index.php');
+}
 
 //logout action
 $logoutaction = "default";
@@ -30,7 +35,7 @@ if ($logoutaction == "Logout") {
 		require_once('logout.php');
 }
 $timestamp = date("Y-m-d H:i:s");
-var_dump($timestamp);
+// var_dump($timestamp);
 ?>
 
 <body>
@@ -86,10 +91,11 @@ if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
 //error message echo  '<script type="text/javascript">swal("Success!", "Authenticated, please wait...", "success");</script>';
 //checks if input empty and writes to DB
 	@$projectname = $_POST['Testcase_Name'];
-  var_dump($_POST);
-	if (!empty($_POST['Testcase_Name'])) {
 
-		$testObject->writeRecord($projectname);
+
+	if (!empty($_POST['Testcase_Name'])) {
+    $mainID = $_SESSION['posted_main_id'];
+		$testObject->writeRecord($projectname, $mainID);
 	} else {
 		echo '<script type="text/javascript">swal("Nope :)", "All fields are required...", "error");</script>';
 	}
@@ -117,7 +123,7 @@ if (isset($_POST['Details'])) {
 	$_SESSION['posted_details_id'] = $posted_details_id;
 	// var_dump($posted_details_id);die();
 	echo  '<script type="text/javascript">swal("Please wait...", "Getting Project Details", "warning");</script>';
-	header("refresh:2; url=details.php");
+	header("refresh:1; url=details.php");
 
 
 	//var_dump($_POST);
@@ -174,7 +180,7 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
  //CUSTOMIZE TO ADD PROJECTS (1 LEVEL UP FROM CURRENT PROJECTS)
 } else {
 	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
-	header("refresh:2; url=index.php");
+	header("refresh:1; url=index.php");
 	$_SESSION['userauth'] = "false";
 
 }
