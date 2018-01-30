@@ -20,11 +20,7 @@
 session_start();
 //login module using session variable
 if ($_SESSION['userauth'] == "true") {
-	echo " ";
-}else{
-	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
-	header('Location: index.php');
-}
+
 
 //logout action
 $logoutaction = "default";
