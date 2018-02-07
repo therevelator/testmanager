@@ -26,7 +26,7 @@ class testcases1
     $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
     $sql="SELECT id, casename, steps, expected, createdby, ProjectID FROM testcases ORDER BY id";
     $result=mysqli_query($link,$sql);
-
+		
     while ($row = mysqli_fetch_assoc($result))
     // Fetch one and one row
    { $ID = $row['id'];

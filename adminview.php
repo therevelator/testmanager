@@ -13,7 +13,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
 
 </head>
-<?php $_SESSION['filename'] = NULL ?>
+<?php
+session_start();
+?>
 <form name="case" class="form-signin" method="POST">
   <div align="center">
     <a href="main.php" class="dc_3d_button black"> Home </a>
@@ -51,7 +53,12 @@
     Select file to upload:
     <input type="file" name="fileToUpload" id="fileToUpload">
     <input type="submit" value="Upload File" name="submit">
+
 </form>
-       -->
+<?php
+$file = $_SESSION['filename'];
+//got the uploaded file name, now let's try to read it ($_SESSION['filename'])
+//find an .xls and .xlsx parser that works in php
+?>
   </div>
 </div>
