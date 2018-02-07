@@ -25,7 +25,7 @@ echo '
 // if (isset($_POST['username']) && isset($_POST['password'])) {
 //   $username = $_POST['username'];
 //   $password = $_POST['password'];
-// }
+// } 
 //add comment
 @$loginaction = $_POST['login'];
 if(isset($loginaction)) {
