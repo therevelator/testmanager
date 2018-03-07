@@ -8,9 +8,34 @@
 <link rel="stylesheet" href="css/sweetalert.css" />
 <link type="text/css" rel="stylesheet" href="css/dc_tables1.css" />
 <link type="text/css" rel="stylesheet" href="css/dc_tables2.css" />
+<link type="text/css" rel="stylesheet" href="css/livesearch.css" />
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (this.readyState==4 && this.status==200) {
+      document.getElementById("livesearch").innerHTML=this.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
 </head>
 <?php
 
@@ -36,6 +61,10 @@ if ($logoutaction == "Logout") {
 ?>
 
 <body>
+  <form>
+    <input placeholder="Search Projects" type="text" size="30" onkeyup="showResult(this.value)">
+  </form>
+  <div id="livesearch"></div>
 	<form name="case" class="form-signin" method="POST">
 		<div align="center">
       <a href="main.php" class="dc_3d_button black"> Home </a>
@@ -75,6 +104,10 @@ if (isset($_POST['AddSection'])) {
 }
 ?>
 </form>
+
+
+<div>
+
 <form name="case2" class="form-signin" method="POST">
 <?php
 if (!empty($_POST['Add']) && $_POST['Add'] == "Save") {
@@ -146,7 +179,7 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
 ?>
 
 </div>
-<div>
+
 <ul class="pagination">
 		<li><a href="?pageno=1">First</a></li>
 		<li class="<?php if($pageno <= 1){ echo 'disabled'; } ?>">
@@ -159,6 +192,7 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
 </ul>
 </div>
 </body>
+
 <?php
 // }else{
 // 	echo '<script type="text/javascript">swal("Nope :)", "Not allowed, redirecting to login page...", "error");</script>';
