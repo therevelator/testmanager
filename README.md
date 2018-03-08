@@ -11,3 +11,4 @@
     - add to the xml whenever a new element is added from the interface (!)
     - polish the css so that it doesn't push down the other divs) (done)
     - change color of placeholder to white;
+- prevent creating a project that already exists
