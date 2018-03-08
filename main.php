@@ -9,7 +9,6 @@
 <link type="text/css" rel="stylesheet" href="css/dc_tables1.css" />
 <link type="text/css" rel="stylesheet" href="css/dc_tables2.css" />
 <link type="text/css" rel="stylesheet" href="css/livesearch.css" />
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -61,10 +60,9 @@ if ($logoutaction == "Logout") {
 ?>
 
 <body>
-  <form>
-    <input placeholder="Search Projects" type="text" size="30" onkeyup="showResult(this.value)">
-  </form>
-  <div id="livesearch"></div>
+
+  <!-- <div id="livesearch"></div> -->
+
 	<form name="case" class="form-signin" method="POST">
 		<div align="center">
       <a href="main.php" class="dc_3d_button black"> Home </a>
@@ -73,10 +71,18 @@ if ($logoutaction == "Logout") {
 			<a href="testcases.php" class="dc_3d_button black"> Details </a>
 			<input class="dc_3d_button green" type="submit" name="Add" value="Add">
 			<a href="logout.php" class="dc_3d_button black"> Logout </a>
+      <div class="search" id="livesearch" style="position:absolute;z-index:10; top:45px;left:10.5%; background: rgba(102,97,97,1);"></div>
+
 		</div>
 	</form>
 
 <div id="example1div">
+  <div class="search">
+    <form>
+      <!-- <input  type="text" size="30" onkeyup="showResult(this.value)"> -->
+      <input class="enjoy-css" placeholder="Search Projects" onkeyup="showResult(this.value)">
+    </form>
+  </div>
 <form name="case1" class="form-signin" method="POST">
 
 <?php
@@ -150,6 +156,7 @@ if (isset($_POST['Details'])) {
 ?>
 </form>
 
+
 <?php
 //connects to the DB and gets the rows after they were added above
 require_once('php/mainclass.php');
@@ -205,4 +212,3 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
  //CUSTOMIZE TO ADD PROJECTS (1 LEVEL UP FROM CURRENT PROJECTS)
 // var_dump($_SESSION);
 ?>
-<body>
