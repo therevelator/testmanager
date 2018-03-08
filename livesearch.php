@@ -36,11 +36,11 @@ if (strlen($q)>0) {
 // Set output to "no suggestion" if no hint was found
 // or to the correct values
 if ($hint=="") {
-  $response="no suggestion";
+  $response="&nbsp;&nbsp;&nbsp;no suggestion&nbsp;&nbsp;&nbsp;";
 } else {
   $response=$hint;
 }
 
 //output the response
 echo $response;
-?> 
+?>

@@ -71,7 +71,7 @@ if ($logoutaction == "Logout") {
 			<a href="testcases.php" class="dc_3d_button black"> Details </a>
 			<input class="dc_3d_button green" type="submit" name="Add" value="Add">
 			<a href="logout.php" class="dc_3d_button black"> Logout </a>
-      <div class="search" id="livesearch" style="position:absolute;z-index:10; top:45px;left:10.5%; background: rgba(102,97,97,1);"></div>
+      <div class="search" id="livesearch" style="position:absolute;z-index:10; top:45px;left:21.5%; background: rgba(102,97,97,1);border: 1px solid #b7b7b7;border-radius: 13px; box-sizing: content-box;"></div>
 
 		</div>
 	</form>
