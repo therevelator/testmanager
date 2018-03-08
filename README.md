@@ -8,5 +8,6 @@
 - replace fields with textareas
 - polish the look of the app
 - add a search function (!) (done, livesearch with AJAX)
-    - add to the xml whenever a new element is added from the interface
-    - polish the css so that it doesn't push down the other divs)
+    - add to the xml whenever a new element is added from the interface (!)
+    - polish the css so that it doesn't push down the other divs) (done)
+    - change color of placeholder to white;
