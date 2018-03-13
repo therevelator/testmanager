@@ -12,6 +12,29 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+function showResult(str) {
+  if (str.length==0) {
+    document.getElementById("livesearch").innerHTML="";
+    document.getElementById("livesearch").style.border="0px";
+    return;
+  }
+  if (window.XMLHttpRequest) {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp=new XMLHttpRequest();
+  } else {  // code for IE6, IE5
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+  xmlhttp.onreadystatechange=function() {
+    if (this.readyState==4 && this.status==200) {
+      document.getElementById("livesearch").innerHTML=this.responseText;
+      document.getElementById("livesearch").style.border="1px solid #A5ACB2";
+    }
+  }
+  xmlhttp.open("GET","livesearch.php?q="+str,true);
+  xmlhttp.send();
+}
+</script>
 </head>
 <?php
 
@@ -43,6 +66,9 @@ $timestamp = date("Y-m-d H:i:s");
 			<a href="testcases.php" class="dc_3d_button black"> Details </a>
 			<input class="dc_3d_button green" type="submit" name="Add" value="Add">
 			<a href="logout.php" class="dc_3d_button black"> Logout </a>
+      <a href="import.php" class="dc_3d_button black"> Import CSV </a>
+      <input class="button" type="text" style="margin-top: 10px;"placeholder="Search.." onkeyup="showResult(this.value)">
+
 			<!-- <div align="right" style="padding-right: 40px; size: 100px;">
 				<form  method="GET">
 					<input class="effect-7" type="text" size="30" onkeyup="showResult(this.value)"  />
@@ -51,7 +77,9 @@ $timestamp = date("Y-m-d H:i:s");
 			<!-- this is the future search: https://www.w3schools.com/php/php_ajax_livesearch.asp -->
 		</div>
 	</form>
-
+  <form>
+       <div class="search" id="livesearch" ></div>
+ </form>
 <div id="example1div">
 
 <form name="case1" class="form-signin" method="POST">
