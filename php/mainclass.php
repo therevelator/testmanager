@@ -79,7 +79,7 @@ class main
 	  $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
 	  $sql="SELECT * FROM  main LIMIT $offset, $no_of_records_per_page";
 	  $result=mysqli_query($link,$sql);
-	  $errornumrows = $result->num_rows;
+	  @$errornumrows = $result->num_rows;
 	  if ($errornumrows != 0) {
 	  while ($row = mysqli_fetch_assoc($result))
 	 { $ID = $row['mainID'];
@@ -89,9 +89,9 @@ class main
 	       <td>' ; echo $row['mainName'] ; echo'</td>
 	       <td>' ; echo $row['CreatedBy'] ; echo'</td>';
 	      echo'  <td>
-	              <input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row['mainID']; echo '">
+	              <button class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row['mainID']; echo '">Delete</button>
 	              <input  type="hidden" id="Delete" value="Delete '; echo $row['mainID']; echo '">
-								<input class="dc_3d_button black" type="submit" name="Details" value="'; echo $row['mainID']; echo '">
+								<button class="dc_3d_button black" type="submit" name="Details" value="'; echo $row['mainID']; echo '">Details</button>
 	              <input  type="hidden" id="Details" value="Details '; echo $row['mainID']; echo '">
 	            </td>
 	        ';

@@ -147,8 +147,9 @@ if (isset($_GET['pageno'])) {
 }
 $no_of_records_per_page = 7;
 $offset = ($pageno-1) * $no_of_records_per_page;
+$mainID = $_SESSION['posted_main_id'];
 $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
-$total_pages_sql = "SELECT COUNT(*) FROM project";
+$total_pages_sql = "SELECT COUNT(*) FROM `project` WHERE NOT mainID = 0 AND mainID ='$mainID'";
 $result = mysqli_query($link,$total_pages_sql);
 $total_rows = mysqli_fetch_array($result)[0];
 $total_pages = ceil($total_rows / $no_of_records_per_page);

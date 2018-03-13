@@ -63,8 +63,10 @@ class testcases
           <td>' ; echo $row["ProjectName"] ; echo'</td>
           <td>' ; echo $row["Section"] ; echo'</td>
           <td>' ; echo $row['CreatedBy'] ; echo'</td>
-          <td><input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row["ProjectID"]; echo '">
-          <input class="dc_3d_button black" type="submit" name="Details" value="'; echo $row["ProjectID"]; echo '"></td>';
+          <td><button class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row["ProjectID"]; echo '">Delete</button>
+					<input  type="hidden" id="Delete" value="Delete '; echo $row['ProjectID']; echo '">
+          <button class="dc_3d_button black" type="submit" name="Details" value="'; echo $row["ProjectID"]; echo '">Details</button>
+					<input  type="hidden" id="Details" value="Details '; echo $row['ProjectID']; echo '"></td>';
 
     }
     mysqli_close($link);

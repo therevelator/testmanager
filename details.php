@@ -102,13 +102,14 @@ if (isset($_GET['pageno'])) {
 }
 $no_of_records_per_page = 7;
 $offset = ($pageno-1) * $no_of_records_per_page;
+$posted_details_id = $_SESSION['posted_details_id'];
 $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
 
 // $result=mysqli_query($link,$sql);
 //set parameters to use later in second foreach
 // if ($result->num_rows > 0) {
 // output data of each row
-$total_pages_sql = "SELECT COUNT(*) FROM project";
+$total_pages_sql = "SELECT COUNT(*) FROM testcases WHERE NOT ProjectID = 0 AND ProjectID = '$posted_details_id'";
 $result = mysqli_query($link,$total_pages_sql);
 $total_rows = mysqli_fetch_array($result)[0];
 $total_pages = ceil($total_rows / $no_of_records_per_page);

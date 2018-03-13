@@ -61,10 +61,7 @@ function getTable1 ($posted_details_id = NULL) {
   //set parameters to use later in second foreach
   // if ($result->num_rows > 0) {
   // output data of each row
-  $total_pages_sql = "SELECT COUNT(*) FROM project";
-  $result = mysqli_query($link,$total_pages_sql);
-  $total_rows = mysqli_fetch_array($result)[0];
-  $total_pages = ceil($total_rows / $no_of_records_per_page);
+
   $posted_details_id = $_SESSION['posted_details_id'];
   $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
   $sql="SELECT * FROM  testcases WHERE ProjectID = $posted_details_id LIMIT $offset, $no_of_records_per_page";
@@ -80,7 +77,7 @@ function getTable1 ($posted_details_id = NULL) {
        <td>' ; echo $row['expected'] ; echo'</td>
        <td>' ; echo $row['createdby'] ; echo'</td>';
       echo'  <td>
-              <input class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row['id']; echo '">
+              <button class="dc_3d_button red" type="submit" name="Delete" value="'; echo $row['id']; echo '">Delete</button>
               <input  type="hidden" id="Delete" value="Delete '; echo $row['id']; echo '">
             </td>
         ';

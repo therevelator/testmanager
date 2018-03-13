@@ -9,6 +9,7 @@
 <link type="text/css" rel="stylesheet" href="css/dc_tables1.css" />
 <link type="text/css" rel="stylesheet" href="css/dc_tables2.css" />
 <link type="text/css" rel="stylesheet" href="css/livesearch.css" />
+<link type="text/css" rel="stylesheet" href="http://cdn.dcodes.net/2/menus/imenu/css/dc_imenu.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -62,27 +63,28 @@ if ($logoutaction == "Logout") {
 <body>
 
   <!-- <div id="livesearch"></div> -->
-
+<div class="navi">
 	<form name="case" class="form-signin" method="POST">
 		<div align="center">
-      <a href="main.php" class="dc_3d_button black"> Home </a>
-			<a href="front.php" class="dc_3d_button black"> Projects </a>
-			<a href="project.php" class="dc_3d_button black"> TestCases </a>
-			<a href="testcases.php" class="dc_3d_button black"> Details </a>
-			<input class="dc_3d_button green" type="submit" name="Add" value="Add">
-			<a href="logout.php" class="dc_3d_button black"> Logout </a>
-      <div class="search" id="livesearch" style="position:absolute;z-index:10; top:45px;left:21.5%; background: rgba(102,97,97,1);border: 1px solid #b7b7b7;border-radius: 13px; box-sizing: content-box;"></div>
+      <div class="topnav">
+       <a class="dc_3d_button black" href="#home">Home</a>
+       <a href="" class="dc_3d_button black">About</a>
+       <input class="dc_3d_button green" type="submit" name="Add" value="Add">
+       <a href="logout.php" class="dc_3d_button black"> Logout </a>
+       <input class="button" type="text" placeholder="Search.." onkeyup="showResult(this.value)">
+      </div>
+</div>
+          <!-- <input  type="text" size="30" onkeyup="showResult(this.value)"> -->
+  <!-- <input class="enjoy-css" placeholder="Search Projects" onkeyup="showResult(this.value)"> -->
+ <form>
+      <div class="search" id="livesearch" style="position:absolute;z-index:10; top:45px;left:60.5%; background: rgba(40,40,40,0.4);border: 1px solid rgba(40,40,40,0.4);border-radius: 13px; box-sizing: content-box;"></div>
+</form>
 
-		</div>
-	</form>
+</div>
+
 
 <div id="example1div">
-  <div class="search">
-    <form>
-      <!-- <input  type="text" size="30" onkeyup="showResult(this.value)"> -->
-      <input class="enjoy-css" placeholder="Search Projects" onkeyup="showResult(this.value)">
-    </form>
-  </div>
+
 <form name="case1" class="form-signin" method="POST">
 
 <?php
@@ -164,6 +166,7 @@ $testObject = new main();
 $testObject->connect();
 @$posted_main_id = $_SESSION['posted_main_id'];
 $testObject->getTable1($posted_main_id);
+//pagination start
 $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
 //this bit is for pagination. add when possible
 if (isset($_GET['pageno'])) {
@@ -172,16 +175,19 @@ if (isset($_GET['pageno'])) {
 		$pageno = 1;
 }
 $no_of_records_per_page = 7;
-$offset = ($pageno-1) * $no_of_records_per_page;
+$offset = ($pageno) * $no_of_records_per_page;
+// var_dump($offset);
 $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
 
 // $result=mysqli_query($link,$sql);
 //set parameters to use later in second foreach
 // if ($result->num_rows > 0) {
 // output data of each row
-$total_pages_sql = "SELECT COUNT(*) FROM project";
+//HAVE TO IMPROVE THE PAGINATION SOMEHOW
+$total_pages_sql = "SELECT COUNT(*) FROM main";
 $result = mysqli_query($link,$total_pages_sql);
 $total_rows = mysqli_fetch_array($result)[0];
+var_dump($total_rows);
 $total_pages = ceil($total_rows / $no_of_records_per_page);
 ?>
 
@@ -211,4 +217,13 @@ $total_pages = ceil($total_rows / $no_of_records_per_page);
  //CUSTOMIZE TO ADD SUBSECTIONS
  //CUSTOMIZE TO ADD PROJECTS (1 LEVEL UP FROM CURRENT PROJECTS)
 // var_dump($_SESSION);
+
+
+// old menu buttons, don't delete for now
+// <a href="main.php" class="dc_3d_button black"> Home </a>
+// <a href="front.php" class="dc_3d_button black"> Projects </a>
+// <a href="testcases.php" class="dc_3d_button black"> Details </a>
+// <input class="dc_3d_button green" type="submit" name="Add" value="Add">
+// <a href="logout.php" class="dc_3d_button black"> Logout </a>
+// <div class="search">
 ?>
