@@ -1,5 +1,6 @@
 <head>
 <link href="css/dc_elite_buttons.css" rel="stylesheet" type="text/css" />
+<link type="text/css" rel="stylesheet" href="css/search.css" />
 <link href="css/dc_buttons_transp.css" rel="stylesheet" type="text/css" />
 <link href="css/index.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="http://cdn.dcodes.net/2/3d_buttons/css/dc_3d_buttons.css" />
@@ -9,6 +10,7 @@
 <link type="text/css" rel="stylesheet" href="css/dc_tables1.css" />
 <link type="text/css" rel="stylesheet" href="css/dc_tables2.css" />
 <link type="text/css" rel="stylesheet" href="css/livesearch.css" />
+
 <link type="text/css" rel="stylesheet" href="http://cdn.dcodes.net/2/menus/imenu/css/dc_imenu.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -77,7 +79,7 @@ if ($logoutaction == "Logout") {
           <!-- <input  type="text" size="30" onkeyup="showResult(this.value)"> -->
   <!-- <input class="enjoy-css" placeholder="Search Projects" onkeyup="showResult(this.value)"> -->
  <form>
-      <div class="search" id="livesearch" style="position:absolute;z-index:10; top:45px;left:60.5%; background: rgba(40,40,40,0.4);border: 1px solid rgba(40,40,40,0.4);border-radius: 13px; box-sizing: content-box;"></div>
+      <div class="search" id="livesearch" ></div>
 </form>
 
 </div>
@@ -183,11 +185,11 @@ $link = mysqli_connect("127.0.0.1", "root", "", "johnny");
 //set parameters to use later in second foreach
 // if ($result->num_rows > 0) {
 // output data of each row
-//HAVE TO IMPROVE THE PAGINATION SOMEHOW
+//HAVE TO IMPROVE THE PAGINATION SOMEHOw
 $total_pages_sql = "SELECT COUNT(*) FROM main";
 $result = mysqli_query($link,$total_pages_sql);
 $total_rows = mysqli_fetch_array($result)[0];
-var_dump($total_rows);
+// var_dump($total_rows);
 $total_pages = ceil($total_rows / $no_of_records_per_page);
 ?>
 
